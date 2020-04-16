@@ -12,12 +12,15 @@
   </div>
   <script type="text/javascript">
     var data = '{"tasks":{"Cut Grass":false,"Clean Room":false,"Go to Gym":true,"Make Dinner":false}}';
-    console.log(data);
     var dataJSON = JSON.parse(data);
     var output = document.getElementById('output');
     var taskList = document.getElementById('taskList');
+
     for(var key in dataJSON.tasks){
-      console.log(key)
+      console.log(key, dataJSON.tasks[key]);
+      var status = !dataJSON.tasks[key] ? '' : ' Checked ';
+      var html = '<li>'+key+'<input type="checkbox" value="'+key+'" '+status+'></li>';
+        taskList.innerHTML += html;
     }
     console.log(dataJSON);
   </script>
