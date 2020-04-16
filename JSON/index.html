@@ -3,48 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON</title>
+  <title>JSON Exercise</title>
 </head>
 <body>
-  <h1>Learning about JSON</h1>
-  <div id="output"></div>
-  <form id="myForm" method="POST">
-    <input type="text" name="first" value="Nadine">
-    <input type="text" name="last" value="Eger">
-    <input type="submit" value="submit">
-  </form>
+  <h1>Learn JSON</h1>
+  <div id="output">
+    <ul id="taskList"></ul>
+  </div>
   <script type="text/javascript">
-      var myForm = document.querySelector('#myForm');
-
-      window.onload = function(){
-        if(sessionStorage['person'] != null){
-          var data = JSON.parse(sessionStorage['person'])
-          var message = 'Welcome '+ data.first+' ' + data.last + ' to the site!!!';
-          document.getElementById('output').innerHTML = message;
-          console.log(data);
-        }
-      }
-
-      myForm.addEventListener('submit', function(e){
-        e.preventDefault();
-        var data = JSON.stringify(formData(myForm));
-        if(data){
-          sessionStorage['person'] = data;
-        }
-        console.log(data);
-      })
-
-      function formData(form){
-        var el = form.querySelectorAll('input[type="text"]');
-        var myData = {};
-        for(var x=0; x<el.length; x++){
-          var name = el[x].name;
-          var value = el[x].value;
-          console.log(name,value);
-          myData[name] = value;
-        }
-        return myData;
-      }
+    var data = '{"tasks":{"Cut Grass":false,"Clean Room":false,"Go to Gym":true,"Make Dinner":false}}';
+    console.log(data);
+    var dataJSON = JSON.parse(data);
+    var output = document.getElementById('output');
+    var taskList = document.getElementById('taskList');
+    for(var key in dataJSON.tasks){
+      console.log(key)
+    }
+    console.log(dataJSON);
   </script>
 </body>
 </html>
