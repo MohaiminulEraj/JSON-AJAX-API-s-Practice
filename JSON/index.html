@@ -45,15 +45,25 @@
       var li = document.createElement('li');
       var checkbox = document.createElement('input');
       var textInside = document.createTextNode(data.info);
+      var span = document.createElement('span');
+      span.innerHTML = 'X';
+      span.onclick = remove;
       checkbox.type = 'checkbox';
       checkbox.value = key;
       checkbox.checked = data.status;
       checkbox.setAttribute('onchange', 'updateJSON()');
       li.appendChild(textInside);
       li.appendChild(checkbox);
+      li.appendChild(span);
       document.querySelector('#taskList').appendChild(li);
     };
 
+    function remove() {
+      var index = this.previousElementSibling.value;
+      taskList.innerHTML = '';
+      dataJSON.splice(index,1);
+      buildCheckboxes(dataJSON)
+    }
     function buildCheckboxes(data){
       for(var key in data){
         addCheckbox(data[key],key);
@@ -64,6 +74,7 @@
     function updateJSON() {
       var key = event.target.value;
       dataJSON[key].status = event.target.checked;
+      sessionStorage['task'] = JSON.stringify(dataJSON);
     }
 
   </script>
