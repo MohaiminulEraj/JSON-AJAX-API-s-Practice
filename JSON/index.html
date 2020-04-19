@@ -28,10 +28,10 @@
     })
 
     window.onload = function(){
-      if(sessionStorage['task'] != null){
-        dataJSON = JSON.parse(sessionStorage['task']);
+      if(sessionStorage['tasklist'] != null){
+        dataJSON = JSON.parse(sessionStorage['tasklist']);
       }else {
-        var data = '[{"info":"Cut Gruss","status":false},{"info":"Clean Room","status":false},{"info":"Go to Gym","status":false},{"info":"Make Dinner","status":false}]';
+        //var data = '[{"info":"Cut Gruss","status":false},{"info":"Clean Room","status":false},{"info":"Go to Gym","status":false},{"info":"Make Dinner","status":false}]';
         dataJSON = JSON.parse(data);
       }
       buildCheckboxes(dataJSON);
@@ -74,7 +74,7 @@
     function updateJSON() {
       var key = event.target.value;
       dataJSON[key].status = event.target.checked;
-      sessionStorage['task'] = JSON.stringify(dataJSON);
+      sessionStorage['tasklist'] = JSON.stringify(dataJSON);
     }
 
   </script>

@@ -1,0 +1,36 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>AJAX</title>
+ </head>
+ <body>
+    <h1>Asynchronous JavaScript and XML</h1>
+    <div id="output"></div>
+    <button id="loadNew">Load</button>
+    <script type="text/javascript">
+        var output = document.getElementById('output');
+        var buttonClick = document.getElementById('loadNew');
+        buttonClick.addEventListener('click', function(){
+            loadAjax();
+        })
+
+        function loadAjax(){
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function(){
+            if(ajax.readyState == 4 && ajax.status == 200){
+                var json = JSON.parse(ajax.responseText);
+                var data = json.results[0];
+                console.log(data);
+                var message = '<h2>'+ data.name.first +' ' + data.name.last +'</h2><br><img src="'+data.picture.large+'">';
+                output.innerHTML = message;
+            }
+        }
+        ajax.open('GET','https://randomuser.me/api',true);
+        ajax.send();
+        }
+
+    </script>
+ </body>
+ </html>
