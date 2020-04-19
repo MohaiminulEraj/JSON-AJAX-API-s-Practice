@@ -8,27 +8,25 @@
  <body>
     <h1>Asynchronous JavaScript and XML</h1>
     <div id="output"></div>
-    <button id="loadNew">Load</button>
+    <button id="trigger">Get a Joke</button>
     <script type="text/javascript">
+        //Random Jokes API site: https://api.chucknorris.io/
+        var joker = document.getElementById('trigger');
         var output = document.getElementById('output');
-        var buttonClick = document.getElementById('loadNew');
-        buttonClick.addEventListener('click', function(){
-            loadAjax();
-        })
+        joker.addEventListener('click',loadJoke);
 
-        function loadAjax(){
-        var ajax = new XMLHttpRequest();
-        ajax.onreadystatechange = function(){
-            if(ajax.readyState == 4 && ajax.status == 200){
-                var json = JSON.parse(ajax.responseText);
-                var data = json.results[0];
-                console.log(data);
-                var message = '<h2>'+ data.name.first +' ' + data.name.last +'</h2><br><img src="'+data.picture.large+'">';
-                output.innerHTML = message;
+        function loadJoke(){
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var json = JSON.parse(ajax.responseText);
+                    console.log(json);
+                    var message = '<div> <img src="'+json.icon_url+'"><h2>'+json.value+' </h2></div>';
+                    output.innerHTML = message;
+                }
             }
-        }
-        ajax.open('GET','https://randomuser.me/api',true);
-        ajax.send();
+            ajax.open('GET','https://api.chucknorris.io/jokes/random',true);
+            ajax.send();
         }
 
     </script>
