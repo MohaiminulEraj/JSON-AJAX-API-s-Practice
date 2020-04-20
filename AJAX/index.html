@@ -14,20 +14,21 @@
         var joker = document.getElementById('trigger');
         var output = document.getElementById('output');
         joker.addEventListener('click',loadJoke);
-
-        function loadJoke(){
-            var ajax = new XMLHttpRequest();
-            ajax.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    var json = JSON.parse(ajax.responseText);
-                    console.log(json);
-                    var message = '<div> <img src="'+json.icon_url+'"><h2>'+json.value+' </h2></div>';
-                    output.innerHTML = message;
-                }
-            }
-            ajax.open('GET','https://api.chucknorris.io/jokes/random',true);
-            ajax.send();
+        function loadJoke() {
+        var url = 'https://api.chucknorris.io/jokes/random';
+        fetch(url).then(resJSON).then(json => output.innerHTML = '<div><img src="' + json.icon_url + '"> ' + json.value + '</div>').catch(error => console.log(error))
         }
+        function resJSON(response){
+            return response.json();
+        }
+        // function loadJoke(){
+        // var url = 'https://api.chucknorris.io/
+        //     fetch(url).then(function(response){
+        //         return response.text();
+        //     }).then(function(text){
+        //         console.log(text);
+        //     })
+        // }
 
     </script>
  </body>
